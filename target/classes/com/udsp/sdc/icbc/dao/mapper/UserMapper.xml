@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.udsp.sdc.icbc.dao.UserMapper">
+  <!-- 
+    This element was generated on 2018-03-28 16:17:03.
+   -->
+  <resultMap id="BaseResultMap" type="com.udsp.sdc.icbc.bean.UserInfo">
+    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="CARD_ID" jdbcType="VARCHAR" property="cardId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_STAR" jdbcType="VARCHAR" property="userStar" />
+    <result column="INTGRRAL" jdbcType="VARCHAR" property="intgral" />
+    <result column="PLATE" jdbcType="VARCHAR" property="plate" />
+    <result column="CAR" jdbcType="VARCHAR" property="car" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="WXUSERID" jdbcType="VARCHAR" property="wxUserId" />
+  </resultMap>
+  <update id="updateWXUserId" parameterType="com.udsp.sdc.icbc.bean.UserInfo">
+    update users
+    set WXUSERID = #{wxUserId,jdbcType=VARCHAR},
+    	STATE = #{state,jdbcType=INTEGER}
+    where CARD_ID = #{cardId,jdbcType=VARCHAR}
+  </update>
+  <select id="queryUserInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from users
+     where CARD_ID = #{cardId,jdbcType=VARCHAR}
+           and USER_NAME = #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="queryUserFirst" parameterType="java.lang.String" resultType="INTEGER">
+    select COUNT(1) from users where WXUSERID = #{wxUserId,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="existUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT * FROM users WHERE wxuserid=#{wxUserId,jdbcType=VARCHAR}
+    </select>
+
+  
+</mapper>

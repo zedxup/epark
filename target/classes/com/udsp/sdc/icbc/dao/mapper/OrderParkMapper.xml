@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.udsp.sdc.icbc.dao.OrderParkMapper">
+  <resultMap id="BaseResultMap" type="com.udsp.sdc.icbc.bean.ParkInfo">
+    <id column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+    <result column="PARK_NAME" jdbcType="VARCHAR" property="parkName" />
+    <result column="PLATE_NUMBER" jdbcType="VARCHAR" property="plateNumber" />
+    <result column="CARD_ID" jdbcType="VARCHAR" property="cardId" />
+    <result column="START_POINT" jdbcType="VARCHAR" property="startPoint" />
+    <result column="ARRIVE" jdbcType="VARCHAR" property="arrive" />
+    <result column="OSTART_TIME" jdbcType="TIMESTAMP" property="ostartTime" />
+    <result column="OEND_TIME" jdbcType="TIMESTAMP" property="oendTime" />
+    <result column="TSTART_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="TEND_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="PAYMONEY" jdbcType="VARCHAR" property="payMoney" />
+    <result column="ORDERSTATE" jdbcType="BIGINT" property="orderState" />
+  </resultMap>
+  <insert id="insertParking" parameterType="com.udsp.sdc.icbc.bean.ParkInfo">
+    insert into orders(ORDER_ID,
+    PARK_NAME ,PLATE_NUMBER,CARD_ID,
+    START_POINT,ARRIVE,OSTART_TIME,OEND_TIME,TSTART_TIME,TEND_TIME,
+    PAYMONEY,ORDERSTATE) values ( #{orderId,jdbcType=VARCHAR},
+    #{parkName,jdbcType=VARCHAR},
+    #{plateNumber,jdbcType=VARCHAR},
+    #{cardId,jdbcType=VARCHAR},
+    #{startPoint,jdbcType=VARCHAR},
+    #{arrive,jdbcType=VARCHAR},
+    #{ostartTime,jdbcType=TIMESTAMP},#{oendTime,jdbcType=TIMESTAMP},
+    #{startTime,jdbcType=TIMESTAMP},
+    #{endTime,jdbcType=TIMESTAMP},
+    #{payMoney,jdbcType=VARCHAR},
+    #{orderState,jdbcType=BIGINT} )
+  </insert>
+  <update id="updateParking" parameterType="com.udsp.sdc.icbc.bean.ParkInfo">
+    update orders 
+    <trim prefix="SET" suffixOverrides=",">
+		<if test="parkName != null and parkName != ''">
+	    	PARK_NAME=#{parkName,jdbcType=VARCHAR},
+	    </if>
+	    <if test="plateNumber != null and plateNumber != ''">
+	    	PLATE_NUMBER=#{plateNumber,jdbcType=VARCHAR},
+	    </if>
+	    <if test="cardId != null and cardId != ''">
+	    	CARD_ID=#{cardId,jdbcType=VARCHAR},
+	    </if>
+	    <if test="startPoint != null and startPoint != ''">
+	    	START_POINT=#{startPoint,jdbcType=VARCHAR},
+	    </if>
+	    <if test="arrive != null and arrive != ''">
+	    	ARRIVE=#{arrive,jdbcType=VARCHAR},
+	    </if>
+	    <if test="ostartTime != null">
+	    	OSTART_TIME=#{ostartTime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="oendTime != null">
+	    	OEND_TIME=#{oendTime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="startTime != null">
+	    	TSTART_TIME=#{startTime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="endTime != null">
+	    	TEND_TIME=#{endTime,jdbcType=DATE},
+	    </if>
+	    <if test="payMoney != null and payMoney != ''">
+	    	PAYMONEY=#{payMoney,jdbcType=VARCHAR},
+	    </if>
+	    <if test="orderState != null and orderState != ''">
+	    	ORDERSTATE=#{orderState,jdbcType=BIGINT} 
+	    </if>
+	  </trim>
+	   where ORDER_ID=#{orderId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertCarInfo" parameterType="com.udsp.sdc.icbc.bean.CarInfo">
+    insert into park (PARK_ID,
+    CARD_ID ,PLATE,CAR,STATE) values ( #{parkId,jdbcType=VARCHAR},
+    #{cardId,jdbcType=VARCHAR},
+    #{plate,jdbcType=VARCHAR},
+    #{car,jdbcType=VARCHAR},
+    #{state,jdbcType=VARCHAR}
+)
+  </insert>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.udsp.sdc.icbc.dao.ParkMapper">
+  <resultMap id="BaseResultMap" type="com.udsp.sdc.icbc.bean.Park">
+    <id column="PARK_ID" jdbcType="VARCHAR" property="parkId" />
+    <result column="PLATE" jdbcType="VARCHAR" property="plate" />
+    <result column="CARD_ID" jdbcType="VARCHAR" property="cardId" />
+    <result column="CAR" jdbcType="VARCHAR" property="car" />
+  </resultMap>
+ 
+<select id="queryPark" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  PARK_ID,PLATE,CARD_ID,CAR from Park
+    where CARD_ID = #{cardId,jdbcType=VARCHAR} and STATE ='1'
+  </select>
+</mapper>

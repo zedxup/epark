@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.udsp.sdc.icbc.dao.OrderDao">
+  <!-- 
+    This element was generated on 2018-03-28 16:17:03.
+   -->
+  <resultMap id="BaseResultMap" type="com.udsp.sdc.icbc.bean.Order">
+    <id column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+    <result column="PLATE_NUMBER" jdbcType="VARCHAR" property="plateNumber" />
+    <result column="CARD_ID" jdbcType="VARCHAR" property="cardId" />
+    <result column="START_POINT" jdbcType="VARCHAR" property="startPoint" />
+    <result column="ARRIVE" jdbcType="VARCHAR" property="arrive" />
+    <result column="OSTART_TIME" jdbcType="VARCHAR" property="oStartTime" />
+    <result column="OEND_TIME" jdbcType="INTEGER" property="oEndTime" />
+    <result column="TSTART_TIME" jdbcType="VARCHAR" property="tStartTime" />
+    <result column="TEND_TIME" jdbcType="VARCHAR" property="tEndTime" />
+    <result column="PAYSTATE" jdbcType="VARCHAR" property="payState" />
+    <result column="PAYMONEY" jdbcType="VARCHAR" property="payMoney" />
+    <result column="ORDERSTATE" jdbcType="INTEGER" property="orderState" />
+  </resultMap>
+
+  <select id="queryOrder"  resultMap="BaseResultMap">
+    select ORDER_ID,PLATE_NUMBER,CARD_ID,START_POINT,ARRIVE,OSTART_TIME,OEND_TIME,TSTART_TIME,TEND_TIME,TEND_TIME,PAYSTATE,PAYMONEY,ORDERSTATE from orders
+    where CARD_ID = #{cardId,jdbcType=VARCHAR} and ORDERSTATE=#{orderState,jdbcType=INTEGER}
+  </select>
+  
+   <update id="updateOrderCancel" parameterType="com.udsp.sdc.icbc.bean.UserInfo">
+    update orders SET ORDERSTATE='0'
+    where ORDER_ID = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
